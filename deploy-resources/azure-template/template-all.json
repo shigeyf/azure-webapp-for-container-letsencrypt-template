@@ -3,55 +3,113 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "subscriptionId": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "[subscription().subscriptionId]",
+            "metadata": {
+                "description": "Azure Subscription Id"
+            }
         },
         "name": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "A name for instance of Azure Web App for Containers"
+            }
         },
         "location": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Location name"
+            }
         },
         "hostingPlanName": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "A name for App Service Plan"
+            }
         },
         "serverFarmResourceGroup": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "A resource group name of App Service Plan"
+            }
         },
         "websiteCustomDomainName": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "A custom domain name for your Azure Web App"
+            }
         },
         "webSitesResourceGroup": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "[resourceGroup().name]",
+            "metadata": {
+                "description": "A resource group name for your Azure Web App"
+            }
         },
         "alwaysOn": {
-            "type": "bool"
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Enable AlwaysOn"
+            }
         },
         "linuxFxVersion": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "DOCKER|<myRegistry>.azurecr.io/yourdockerimagename:<myTag>",
+            "metadata": {
+                "description": "The Runtime stack of current web app"
+            }
         },
         "dockerRegistryUrl": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "https://<myRegistry>.azurecr.io",
+            "metadata": {
+                "description": "Docker Registry URL"
+            }
         },
         "dockerRegistryUsername": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "Docker Registry Username"
+            }
         },
         "dockerRegistryPassword": {
-            "type": "securestring"
+            "type": "securestring",
+            "metadata": {
+                "description": "Docker Registry Password"
+            }
         },
         "dockerRegistryStartupCommand": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "Docker Registry Startup Command"
+            }
         },
         "enableAppServiceStorage": {
-            "type": "bool"
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Enable App Service Storage to mount the volume to the container"
+            }
         },
         "azureCliServicePrincipalId": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "Your Azure Service Pricipal account Id which is used for Azure CLI operations"
+            }
         },
         "azureCliServicePrincipalTenantId": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "Your Azure Tenant Id of your Azure Service Pricipal account which is used for Azure CLI operations"
+            }
         },
         "letsencryptEmail": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "E-mail address used in Let's Encrypt (certbot)"
+            }
         }
     },
     "variables": {},

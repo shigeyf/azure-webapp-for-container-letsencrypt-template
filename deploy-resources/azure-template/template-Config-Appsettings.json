@@ -1,0 +1,77 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "hostingPlanName": {
+            "type": "string"
+        },
+        "serverFarmResourceGroup": {
+            "type": "string"
+        },
+        "websiteCustomDomainName": {
+            "type": "string"
+        },
+        "webSitesResourceGroup": {
+            "type": "string"
+        },
+        "alwaysOn": {
+            "type": "bool"
+        },
+        "linuxFxVersion": {
+            "type": "string"
+        },
+        "dockerRegistryUrl": {
+            "type": "string"
+        },
+        "dockerRegistryUsername": {
+            "type": "string"
+        },
+        "dockerRegistryPassword": {
+            "type": "securestring"
+        },
+        "dockerRegistryStartupCommand": {
+            "type": "string"
+        },
+        "enableAppServiceStorage": {
+            "type": "bool"
+        },
+        "azureCliServicePrincipalId": {
+            "type": "string"
+        },
+        "azureCliServicePrincipalTenantId": {
+            "type": "string"
+        },
+        "letsencryptEmail": {
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites/config",
+            "name": "[concat(parameters('name'),'/appsettings')]",
+            "apiVersion": "2020-09-01",
+            "location": "[parameters('location')]",
+            "properties": {
+                "DOCKER_REGISTRY_SERVER_URL": "[parameters('dockerRegistryUrl')]",
+                "DOCKER_REGISTRY_SERVER_USERNAME": "[parameters('dockerRegistryUsername')]",
+                "DOCKER_REGISTRY_SERVER_PASSWORD": "[parameters('dockerRegistryPassword')]",
+                "WEBSITES_ENABLE_APP_SERVICE_STORAGE": "[parameters('enableAppServiceStorage')]",
+                "AZURE_CLI_SERVICE_PRINCIPAL_ID": "[parameters('azureCliServicePrincipalId')]",
+                "AZURE_CLI_SERVICE_PRINCIPAL_TENANT_ID": "[parameters('azureCliServicePrincipalTenantId')]",
+                "WEBSITES_RESOURCE_GROUP": "[parameters('webSitesResourceGroup')]",
+                "LETSENCRYPT_EMAIL": "[parameters('letsencryptEmail')]",
+                "LETSENCRYPT_HOSTNAME": "[parameters('websiteCustomDomainName')]"
+            }
+        }
+    ]
+}

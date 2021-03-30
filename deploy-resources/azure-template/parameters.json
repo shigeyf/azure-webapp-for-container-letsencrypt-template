@@ -1,0 +1,57 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value": "<string value - Azure Subscription Id>"
+        },
+        "name": {
+            "value": "<string value - Azure Web App for Container>"
+        },
+        "location": {
+            "value": "<string value - Region name of Azure Web App for Container>"
+        },
+        "hostingPlanName": {
+            "value": "<string value - Azure App Service Plan>"
+        },
+        "serverFarmResourceGroup": {
+            "value": "<string value - Resource Group of Azure App Service Plan>"
+        },
+        "websiteCustomDomainName": {
+            "value": "<string value - custom domain name>"
+        },
+        "webSitesResourceGroup": {
+            "value": "<string value - Resource Group of Azure Web App for Container>"
+        },
+        "alwaysOn": {
+            "value": true
+        },
+        "linuxFxVersion": {
+            "value": "DOCKER|<myRegistry>.azurecr.io/yourdockerimagename:<myTag>"
+        },
+        "dockerRegistryUrl": {
+            "value": "https://<myRegistry>.azurecr.io"
+        },
+        "dockerRegistryUsername": {
+            "value": "<myRegistryUserName>"
+        },
+        "dockerRegistryPassword": {
+            "value": "<myRegistryUserName>"
+        },
+        "dockerRegistryStartupCommand": {
+            "value": ""
+        },
+        "enableAppServiceStorage": {
+            "value": true
+        },
+        "azureCliServicePrincipalId": {
+            "value": "<string value - Azure AD App Service Principal ID for Azure CLI>"
+        },
+        "azureCliServicePrincipalTenantId": {
+            "value": "<string value - Azure AD Tenant ID for Azure CLI>"
+        },
+        "letsencryptEmail": {
+            "value": "<string value - E-mail address used in Let's Encrypt>"
+        }
+    }
+}

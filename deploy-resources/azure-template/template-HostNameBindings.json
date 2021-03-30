@@ -1,0 +1,71 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "hostingPlanName": {
+            "type": "string"
+        },
+        "serverFarmResourceGroup": {
+            "type": "string"
+        },
+        "websiteCustomDomainName": {
+            "type": "string"
+        },
+        "webSitesResourceGroup": {
+            "type": "string"
+        },
+        "alwaysOn": {
+            "type": "bool"
+        },
+        "linuxFxVersion": {
+            "type": "string"
+        },
+        "dockerRegistryUrl": {
+            "type": "string"
+        },
+        "dockerRegistryUsername": {
+            "type": "string"
+        },
+        "dockerRegistryPassword": {
+            "type": "securestring"
+        },
+        "dockerRegistryStartupCommand": {
+            "type": "string"
+        },
+        "enableAppServiceStorage": {
+            "type": "bool"
+        },
+        "azureCliServicePrincipalId": {
+            "type": "string"
+        },
+        "azureCliServicePrincipalTenantId": {
+            "type": "string"
+        },
+        "letsencryptEmail": {
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "name": "[concat(parameters('name'),'/',parameters('websiteCustomDomainName'))]",
+            "apiVersion": "2020-09-01",
+            "location": "[parameters('location')]",
+            "properties": {
+                "domainId": null,
+                "hostNameType": "Verified",
+                "siteName": "[parameters('name')]"
+            }
+        }
+    ]
+}

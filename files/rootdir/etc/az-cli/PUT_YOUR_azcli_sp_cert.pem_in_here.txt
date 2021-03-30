@@ -1,0 +1,9 @@
+# Service Principal Certificate file for Azure CLI operations
+#
+# Put your certificate with azcli_sp_cert.pem in files/etc/az-cli
+#  after creating a service principal and a certificate.
+# You can run the following Azure CLI command in your desktop environment
+#  to create a service principal and a certificate.
+#
+# CMD> az ad sp create-for-rbac --name ServicePrincipalName --create-cert
+#

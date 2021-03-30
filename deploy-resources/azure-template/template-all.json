@@ -1,0 +1,142 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "hostingPlanName": {
+            "type": "string"
+        },
+        "serverFarmResourceGroup": {
+            "type": "string"
+        },
+        "websiteCustomDomainName": {
+            "type": "string"
+        },
+        "webSitesResourceGroup": {
+            "type": "string"
+        },
+        "alwaysOn": {
+            "type": "bool"
+        },
+        "linuxFxVersion": {
+            "type": "string"
+        },
+        "dockerRegistryUrl": {
+            "type": "string"
+        },
+        "dockerRegistryUsername": {
+            "type": "string"
+        },
+        "dockerRegistryPassword": {
+            "type": "securestring"
+        },
+        "dockerRegistryStartupCommand": {
+            "type": "string"
+        },
+        "enableAppServiceStorage": {
+            "type": "bool"
+        },
+        "azureCliServicePrincipalId": {
+            "type": "string"
+        },
+        "azureCliServicePrincipalTenantId": {
+            "type": "string"
+        },
+        "letsencryptEmail": {
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "kind": "app,linux,container",
+            "dependsOn": [],
+            "properties": {
+                "name": "[parameters('name')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_URL",
+                            "value": "[parameters('dockerRegistryUrl')]"
+                        },
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_USERNAME",
+                            "value": "[parameters('dockerRegistryUsername')]"
+                        },
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
+                            "value": "[parameters('dockerRegistryPassword')]"
+                        },
+                        {
+                            "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+                            "value": "[parameters('enableAppServiceStorage')]"
+                        },
+                        {
+                            "name": "AZURE_CLI_SERVICE_PRINCIPAL_ID",
+                            "value": "[parameters('azureCliServicePrincipalId')]"
+                        },
+                        {
+                            "name": "AZURE_CLI_SERVICE_PRINCIPAL_TENANT_ID",
+                            "value": "[parameters('azureCliServicePrincipalTenantId')]"
+                        },
+                        {
+                            "name": "WEBSITES_RESOURCE_GROUP",
+                            "value": "[parameters('webSitesResourceGroup')]"
+                        },
+                        {
+                            "name": "LETSENCRYPT_EMAIL",
+                            "value": "[parameters('letsencryptEmail')]"
+                        },
+                        {
+                            "name": "LETSENCRYPT_HOSTNAME",
+                            "value": "[parameters('websiteCustomDomainName')]"
+                        }
+                    ],
+                    "linuxFxVersion": "[parameters('linuxFxVersion')]",
+                    "appCommandLine": "[parameters('dockerRegistryStartupCommand')]",
+                    "alwaysOn": "[parameters('alwaysOn')]"
+                },
+                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "clientAffinityEnabled": false,
+                "clientCertEnabled": false,
+                "containerSize": 0,
+                "dailyMemoryTimeQuota": 0,
+                "enabled": true,
+                "http20Enabled": true,
+                "hostNamesDisabled": false,
+                "httpsOnly": false,
+                "hyperV": false,
+                "isXenon": false,
+                "redundancyMode": "None",
+                "reserved": true,
+                "scmSiteAlsoStopped": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/hostNameBindings",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('name'),'/',parameters('websiteCustomDomainName'))]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites',parameters('name'))]"
+            ],
+            "properties": {
+                "domainId": null,
+                "hostNameType": "Verified",
+                "siteName": "[parameters('name')]"
+            }
+        }
+    ]
+}

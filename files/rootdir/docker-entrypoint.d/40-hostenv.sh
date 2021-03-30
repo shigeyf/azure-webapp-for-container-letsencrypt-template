@@ -1,0 +1,18 @@
+#!/bin/sh
+# vim:sw=4:ts=4:et
+
+set -e
+ME=$(basename $0)
+
+echo "$ME: info: Create a file of environment key/value pairs"
+cat > /etc/dockerhost-envs << EOF
+#!/bin/sh
+# vim:sw=4:ts=4:et
+
+export WEBSITE_SITE_NAME=$WEBSITE_SITE_NAME
+export WEBSITES_RESOURCE_GROUP=$WEBSITES_RESOURCE_GROUP
+export LETSENCRYPT_HOSTNAME=$LETSENCRYPT_HOSTNAME
+export LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL
+export AZURE_CLI_SERVICE_PRINCIPAL_ID=$AZURE_CLI_SERVICE_PRINCIPAL_ID
+export AZURE_CLI_SERVICE_PRINCIPAL_TENANT_ID=$AZURE_CLI_SERVICE_PRINCIPAL_TENANT_ID
+EOF
